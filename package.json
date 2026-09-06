@@ -1,0 +1,10 @@
+{
+  "name": "tutoring-schedule",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "serve": "node src/server/server.js",
+    "serve:node": "node src/server/server.js",
+    "serve:python": "python src/server/server.py"
+  }
+}

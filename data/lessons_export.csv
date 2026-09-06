@@ -7,8 +7,8 @@ L005,03/03/2026,14:00,60,Vu Ha My,T2,R2,cancelled,2026-03-03T08:15:00+07:00,fami
 L006,03/03/2026,15:30,90,Bui An Nhien,T1,R1,booked,,,
 L007,04/03/2026,9:00,60,Le Minh Chau,T3,R3,booked,,,
 L008,04/03/2026,9:00,60,Le Minh Chau,T2,R2,booked,,added by phone; family confirmed,
-L009,04/03/2026,11:00,90,Tran Bao Long,T1,R1,booked,,exam pair - half price,true
-L010,04/03/2026,11:00,90,Nguyen Thi Ha,T1,R1,booked,,exam pair - half price,true
+L009,04/03/2026,11:00,90,Tran Bao Long,T1,R1,booked,,exam pair - half price,
+L010,04/03/2026,11:00,90,Nguyen Thi Ha,T1,R1,booked,,exam pair - half price,
 L011,04/03/2026,14:00,60,Do Van Kien,T3,R3,booked,,,
 L012,04/03/2026,16:00,60,Vu Ha My,T2,R2,booked,,,
 L013,05/03/2026,9:00,60,Bui An Nhien,T1,R1,booked,,,

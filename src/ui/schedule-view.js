@@ -1,0 +1,7 @@
+const time = (lesson) => `${lesson.startTime}–${String(Math.floor((lesson.startTime.split(":")[0] * 60 + Number(lesson.startTime.split(":")[1]) + lesson.durationMin) / 60)).padStart(2, "0")}:${String((Number(lesson.startTime.split(":")[1]) + lesson.durationMin) % 60).padStart(2, "0")}`;
+
+export function scheduleView(lessons, tutors, selectedId, conflictIds) {
+  const tutorName = Object.fromEntries(tutors.map((tutor) => [tutor.id, tutor.name]));
+  if (!lessons.length) return `<p class="empty">No lessons match the current filters.</p>`;
+  return `<div class="table-wrap"><table><thead><tr><th>Date · time</th><th>Lesson · student</th><th>Tutor</th><th>Room</th><th>Status</th><th>Note / change</th><th></th></tr></thead><tbody>${lessons.map((lesson) => `<tr class="${lesson.id === selectedId ? "selected" : ""} ${conflictIds.has(lesson.id) ? "conflict-row" : ""}"><td><strong>${lesson.date}</strong><br><span>${time(lesson)}</span></td><td><strong>${lesson.id}</strong><br><span>${lesson.metadata.student || "—"}</span></td><td>${tutorName[lesson.tutorId] || lesson.tutorId}</td><td>${lesson.metadata.room || "—"}</td><td><span class="status ${lesson.metadata.status}">${lesson.metadata.status}</span></td><td>${lesson.metadata.status === "cancelled" ? `<strong>Cancelled</strong><br><span>${lesson.metadata.cancelledAt || "No cancellation time"}</span><br>` : ""}${lesson.metadata.note ? `<span>${lesson.metadata.note}</span>` : "<span>—</span>"}</td><td><button class="link-button" data-edit="${lesson.id}">Edit</button></td></tr>`).join("")}</tbody></table></div>`;
+}

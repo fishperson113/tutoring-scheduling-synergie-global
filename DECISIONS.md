@@ -4,6 +4,8 @@
 
 Work ran from 16:30 to 19:15. Codex Luna (low) was used to analyse the brief and policy checks, then record the technical decisions below. The main implementation used Codex Terra (medium). Time beyond the exercise box went into UI/UX verification and small refinements: the final two technical decisions, CSV export, responsive layout alignment, and proof-reading this document.
 
+For setup, run commands, and the API contract, see [README.md](README.md).
+
 ## 1. Pain points from the three user stories
 
 ### Owner
@@ -108,6 +110,8 @@ Policies read keys such as `room` and `status` from metadata.
 
 **Technical decision — metadata dictionary:** all non-core CSV fields are mapped dynamically into the lesson metadata dictionary. The server and export flow preserve unknown metadata fields instead of maintaining a fixed schema for them. Policies and UI may read known keys such as `room`, `status`, `note`, and `conflictResolved` when needed.
 
+**Technical decision — export extension:** the original front-desk CSV is accepted unchanged and is not repaired. When the tool saves or exports a lesson, it may add the optional `conflict_resolved` metadata column to record a human-approved exception. This preserves the one-row-per-lesson structure, every original identifier, and every original source field; it does not reinterpret or remove the source data.
+
 This model fits the current CSV files, supports easy CSV/Excel export, keeps relationship and conflict fields explicit, and leaves changing business fields extensible. A frequently queried metadata key can later be promoted to a column.
 
 ## 4. Technology and implementation
@@ -161,6 +165,8 @@ The current priority is an incremental move away from Excel: preserve the famili
 ## 5. Architecture
 
 **Hexagonal Architecture**
+
+**Technical decision — why Hexagonal:** it keeps UI and policy logic independent from CSV, local API, or future Firebase adapters, so the data source can change without rewriting the scheduling core.
 
 ```text
 project/
@@ -234,5 +240,6 @@ These local HTTP servers serve the frontend and a minimal CRUD API that reads an
 
 - **Next:** add tutor web push after introducing centralized storage, device subscriptions, and a delivery service.
 - **Known weakness:** CSV is not suitable for simultaneous receptionists. Opening-day, tutor-load, cancellation, and cut-off checks are documented but not yet fully implemented.
+- **Delete disclaimer:** no delete endpoint was included because the soft-delete requirement was not specified in the initial decisions used for implementation. A future delete flow should retain the record and add soft-delete metadata rather than removing it permanently.
 - **Rejected approach:** hard-block every conflict. This would prevent deliberate exam-pair bookings, so the tool detects conflicts and records a human-approved exception instead.
 - **AI use:** Luna supported policy analysis and technical decisions; Terra supported the main implementation.
